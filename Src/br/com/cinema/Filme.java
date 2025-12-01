@@ -1,3 +1,4 @@
+package br.com.cinema;
 public class Filme {
 
     private String titulo;
