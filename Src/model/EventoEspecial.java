@@ -1,4 +1,5 @@
-package br.com.cinema;
+package model;
+
 public class EventoEspecial extends Filme {
 
     public String titulo;

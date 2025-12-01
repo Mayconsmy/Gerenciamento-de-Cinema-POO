@@ -1,4 +1,5 @@
-package br.com.cinema;
+package model;
+
 public abstract class Produto {
 
     protected String nome;

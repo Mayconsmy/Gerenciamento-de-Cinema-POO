@@ -1,4 +1,5 @@
-package br.com.cinema;
+package model;
+
 public class Lanche extends Produto {
     private String tamanho;
     private int emEstoque;
