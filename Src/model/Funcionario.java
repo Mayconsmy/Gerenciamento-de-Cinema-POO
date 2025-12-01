@@ -1,29 +1,33 @@
 package model;
 
 public class Funcionario extends Pessoa {
-
-    private String cargo;
+    //Atributos de Funcionario
+    private String matricula;
     private double salario;
-    public Funcionario(String nome, String cpf, String cargo, double salario, String senha) {
+
+    public Funcionario(String nome, String cpf, String senha, String matricula, double salario) {
         super(nome, cpf, senha);
-        this.cargo = cargo;
-        this.salario = salario;
-        this.senha = senha;
+        this.matricula = matricula;
+        // Usamos o setter aqui para garante a validação na criação
+        //setSalario(salario);
     }
 
-    public String getCargo() { return cargo; }
-    public void setCargo(String cargo){
-        this.cargo = cargo;
+    //Sobrescreve o método abstrato da mãe
+    @Override
+    public String exibirDetalhes() {
+        return "Funcionário: " + getNome() + " | Matrícula: " + matricula + " | Salário: R$ " + salario;
     }
 
-    public double getSalario(){
-        return salario;
-    }
-    public void setSalario(double salario){
-        this.salario = salario;
-    }
+//    // Setter com validação lógica
+//    public void setSalario(double salario) {
+//        if (salario < 0) {
+//            throw new IllegalArgumentException("Erro: O salário não pode ser negativo!");
+//        }
+//        this.salario = salario;
+//    }
 
-    public String realizarAcao() {
-        return "O funcionário " + getNome() + " está trabalhando como " + cargo + ".";
-    }
+    public String getMatricula() { return matricula; }
+    public void setMatricula(String matricula) { this.matricula = matricula; }
+
+    public double getSalario() { return salario; }
 }

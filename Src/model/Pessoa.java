@@ -1,9 +1,9 @@
 package model;
 
 public abstract class Pessoa {
-    protected String nome;
-    protected String cpf;
-    protected String senha;
+    private String nome;
+    private String cpf;
+    private String senha;
 
     public Pessoa(String nome, String cpf, String senha) {
         this.nome = nome;
@@ -11,21 +11,19 @@ public abstract class Pessoa {
         this.senha = senha;
     }
 
-    public String getNome() {
-        return nome;
+
+    public abstract String exibirDetalhes();
+
+    public boolean autenticar(String senhaInput) {
+        return this.senha.equals(senhaInput);
     }
 
-    public String getCpf() {
-        return cpf;
-    }
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
 
-    public String getSenha() {
-        return senha;
-    }
-    
-    public abstract String getCargo(); 
-    
-    public String getDetalhesIdentificacao() {
-        return "Nome: " + this.nome + " | CPF: " + this.cpf;
-    }
+    public String getCpf() { return cpf; }
+    public void setCpf(String cpf) { this.cpf = cpf; }
+
+    public String getSenha() { return senha; }
+    public void setSenha(String senha) { this.senha = senha; }
 }
