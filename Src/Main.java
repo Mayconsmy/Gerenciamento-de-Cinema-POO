@@ -64,6 +64,7 @@ public class Main {
             }
         }
     }
+
     private static void inicializarDados() {
         gerenciadorPessoas.adicionarPessoa(new Gerente("João Pessoa", "123.456.789-00", "senha123", "Administração"));
         gerenciadorPessoas.adicionarPessoa(new Funcionario("Bruno Borges", "987.654.321-00", "Atendente de Bilheteria", 1500.00, "senha456"));
@@ -89,4 +90,36 @@ public class Main {
         System.out.print("Escolha uma opção: ");
     }
     
+        private static void menuPessoas() {
+        int opcao = -1;
+        while (opcao != 0) {
+            System.out.println("\n Gerenciar Pessoas");
+            System.out.println("1. Listar Todas as Pessoas");
+            System.out.println("2. Adicionar Novo Funcionário");
+            System.out.println("3. Adicionar Novo Gerente");
+            System.out.println("0. Voltar ao Menu Principal");
+            System.out.print("Escolha uma opção: ");
+
+            try {
+                opcao = Integer.parseInt(scanner.nextLine());
+                switch (opcao) {
+                    case 1:
+                        gerenciadorPessoas.listarTodasAsPessoas();
+                        break;
+                    case 2:
+                        adicionarFuncionario();
+                        break;
+                    case 3:
+                        adicionarGerente();
+                        break;
+                    case 0:
+                        break;
+                    default:
+                        System.out.println("Opção inválida.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Por favor, digite um número.");
+            }
+        }
+    }
 }
