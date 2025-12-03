@@ -39,7 +39,7 @@ public class Filme {
     }
 
     public void exibirDetalhes() {
-        System.out.println("--- Detalhes do Filme ---");
+        System.out.println("   Detalhes do Filme   ");
         System.out.println("Título: " + titulo);
         System.out.println("Duração: " + duracaoMinutos + " minutos");
         System.out.println("Classificação Indicativa: " + classificacaoIndicativa);

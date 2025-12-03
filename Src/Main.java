@@ -1,0 +1,67 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+class GerenciadorDePessoas {
+    private List<Pessoa> pessoas;
+
+    public GerenciadorDePessoas() {
+        this.pessoas = new ArrayList<>();
+    }
+
+    public void adicionarPessoa(Pessoa p) {
+        this.pessoas.add(p);
+    }
+
+    public void listarTodasAsPessoas() {
+        if (pessoas.isEmpty()) {
+            System.out.println("Nenhuma pessoa cadastrada.");
+            return;
+        }
+        System.out.println("\n Lista de Pessoas Cadastradas ");
+        for (Pessoa p : pessoas) {
+            System.out.println(p.getDetalhesIdentificacao() + " | Cargo: " + p.getCargo());
+        }
+    }
+}
+
+public class Main {
+    private static Scanner scanner = new Scanner(System.in);
+    private static GerenciadorDePessoas gerenciadorPessoas = new GerenciadorDePessoas();
+    private static List<Filme> filmes = new ArrayList<>();
+    private static List<Produto> produtos = new ArrayList<>();
+    private static List<SalaExibicao> salas = new ArrayList<>();
+
+    public static void main(String[] args) {
+        inicializarDados();
+
+        int opcao = -1;
+        while (opcao != 0) {
+            exibirMenuPrincipal();
+            try {
+                opcao = Integer.parseInt(scanner.nextLine());
+                switch (opcao) {
+                    case 1:
+                        menuPessoas();
+                        break;
+                    case 2:
+                        menuFilmesEventos();
+                        break;
+                    case 3:
+                        menuProdutos();
+                        break;
+                    case 4:
+                        menuSalas();
+                        break;
+                    case 0:
+                        System.out.println("Saindo do sistema. Até mais!");
+                        break;
+                    default:
+                        System.out.println("Opção inválida. Tente novamente.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Por favor, digite um número.");
+            }
+        }
+    }
+}

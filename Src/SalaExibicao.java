@@ -40,7 +40,7 @@ public class SalaExibicao {
     }
     
     public void exibirDetalhes() {
-        System.out.println("--- informações da Sala ---");
+        System.out.println("   informações da Sala   ");
         System.out.println("Número da Sala: " + numeroSala);
         System.out.println("Capacidade Máxima: " + capacidadeTotal + " assentos");
         System.out.println("Suporte 3D: " + (is3D ? "Sim" : "Não"));
