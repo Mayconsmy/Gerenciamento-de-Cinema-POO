@@ -123,3 +123,47 @@ public class Main {
         }
     }
 }
+private static void adicionarFuncionario() {
+    System.out.print("Nome: ");
+    String nome = scanner.nextLine();
+    System.out.print("CPF: ");
+    String cpf = scanner.nextLine();
+    System.out.print("Senha: ");
+    String senha = scanner.nextLine();
+    System.out.print("Cargo: ");
+    String cargo = scanner.nextLine();
+    System.out.print("Salário: ");
+    double salario = Double.parseDouble(scanner.nextLine());
+
+    Funcionario f = new Funcionario(nome, cpf, cargo, salario, senha);
+    gerenciadorPessoas.adicionarPessoa(f);
+    System.out.println("Funcionário " + nome + " adicionado com sucesso!");
+}
+
+private static void adicionarGerente() {
+    System.out.print("Nome: ");
+    String nome = scanner.nextLine();
+    System.out.print("CPF: ");
+    String cpf = scanner.nextLine();
+    System.out.print("Senha: ");
+    String senha = scanner.nextLine();
+    System.out.print("Departamento: ");
+    String departamento = scanner.nextLine();
+
+    Gerente g = new Gerente(nome, cpf, senha, departamento);
+    gerenciadorPessoas.adicionarPessoa(g);
+    System.out.println("Gerente " + nome + " adicionado com sucesso!");
+}
+
+private static void adicionarFilme() {
+    System.out.print("Título: ");
+    String titulo = scanner.nextLine();
+    System.out.print("Duração (minutos): ");
+    int duracao = Integer.parseInt(scanner.nextLine());
+    System.out.print("Classificação Indicativa: ");
+    String classificacao = scanner.nextLine();
+
+    Filme f = new Filme(titulo, duracao, classificacao);
+    filmes.add(f);
+    System.out.println("Filme " + titulo + " adicionado com sucesso!");
+}
