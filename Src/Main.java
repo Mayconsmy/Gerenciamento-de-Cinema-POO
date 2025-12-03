@@ -64,4 +64,18 @@ public class Main {
             }
         }
     }
+    private static void inicializarDados() {
+        gerenciadorPessoas.adicionarPessoa(new Gerente("João Pessoa", "123.456.789-00", "senha123", "Administração"));
+        gerenciadorPessoas.adicionarPessoa(new Funcionario("Bruno Borges", "987.654.321-00", "Atendente de Bilheteria", 1500.00, "senha456"));
+
+        filmes.add(new Filme("O Grande Lebowski", 117, "14 anos"));
+        filmes.add(new Filme("Harakiri", 133, "16 anos"));
+
+        produtos.add(new Lanche("Pipoca Grande", 25.00, "Grande", 50));
+        produtos.add(new Lanche("Refrigerante", 10.00, "Médio", 100));
+
+        salas.add(new SalaExibicao(1, 150, true));
+        salas.add(new SalaExibicao(2, 100, false));
+    }
+
 }
