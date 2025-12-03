@@ -77,5 +77,16 @@ public class Main {
         salas.add(new SalaExibicao(1, 150, true));
         salas.add(new SalaExibicao(2, 100, false));
     }
-
+        private static void exibirMenuPrincipal() {
+        System.out.println();
+        System.out.println("  SISTEMA DE GERENCIAMENTO DE CINEMA");
+        System.out.println();
+        System.out.println("1. Gerenciar Pessoas (Funcionários/Gerentes)");
+        System.out.println("2. Gerenciar Filmes e Eventos");
+        System.out.println("3. Gerenciar Produtos (Lanches)");
+        System.out.println("4. Gerenciar Salas de Exibição");
+        System.out.println("0. Sair");
+        System.out.print("Escolha uma opção: ");
+    }
+    
 }
