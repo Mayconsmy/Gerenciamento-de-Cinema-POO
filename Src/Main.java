@@ -208,3 +208,47 @@ private static void adicionarFilme() {
     filmes.add(f);
     System.out.println("Filme " + titulo + " adicionado com sucesso!");
 }
+
+private static void menuProdutos() {
+        int opcao = -1;
+        while (opcao != 0) {
+            System.out.println("\n Gerenciar Produtos (Lanches)");
+            System.out.println("1. Listar Todos os Produtos");
+            System.out.println("2. Adicionar Novo Lanche");
+            System.out.println("3. Vender Lanche (Baixa no Estoque)");
+            System.out.println("0. Voltar ao Menu Principal");
+            System.out.print("Escolha uma opção: ");
+
+            try {
+                opcao = Integer.parseInt(scanner.nextLine());
+                switch (opcao) {
+                    case 1:
+                        listarProdutos();
+                        break;
+                    case 2:
+                        adicionarLanche();
+                        break;
+                    case 3:
+                        venderLanche();
+                        break;
+                    case 0:
+                        break;
+                    default:
+                        System.out.println("Opção inválida.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Por favor, digite um número.");
+            }
+        }
+    }
+
+    private static void listarProdutos() {
+        if (produtos.isEmpty()) {
+            System.out.println("Nenhum produto cadastrado.");
+            return;
+        }
+        System.out.println("\n Lista de Produtos");
+        for (Produto p : produtos) {
+            System.out.println(p.exibirDetalhes());
+        }
+    }
