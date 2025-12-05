@@ -123,6 +123,7 @@ public class Main {
         }
     }
 }
+
 private static void adicionarFuncionario() {
     System.out.print("Nome: ");
     String nome = scanner.nextLine();
@@ -154,6 +155,46 @@ private static void adicionarGerente() {
     gerenciadorPessoas.adicionarPessoa(g);
     System.out.println("Gerente " + nome + " adicionado com sucesso!");
 }
+    private static void menuFilmesEventos() {
+        int opcao = -1;
+        while (opcao != 0) {
+            System.out.println("\n Gerenciar Filmes e Eventos");
+            System.out.println("1. Listar Todos");
+            System.out.println("2. Adicionar Novo Filme");
+            System.out.println("0. Voltar ao Menu Principal");
+            System.out.print("Escolha uma opção: ");
+
+            try {
+                opcao = Integer.parseInt(scanner.nextLine());
+                switch (opcao) {
+                    case 1:
+                        listarFilmesEventos();
+                        break;
+                    case 2:
+                        adicionarFilme();
+                        break;
+                    case 0:
+                        break;
+                    default:
+                        System.out.println("Opção inválida.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Por favor, digite um número.");
+            }
+        }
+    }
+
+    private static void listarFilmesEventos() {
+        if (filmes.isEmpty()) {
+            System.out.println("Nenhum filme ou evento cadastrado.");
+            return;
+        }
+        System.out.println("\n Lista de Filmes e Eventos ");
+        for (Filme f : filmes) {
+            f.exibirDetalhes();
+            System.out.println();
+        }
+    }
 
 private static void adicionarFilme() {
     System.out.print("Título: ");
