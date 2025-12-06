@@ -78,7 +78,8 @@ public class Main {
         salas.add(new SalaExibicao(1, 150, true));
         salas.add(new SalaExibicao(2, 100, false));
     }
-        private static void exibirMenuPrincipal() {
+
+    private static void exibirMenuPrincipal() {
         System.out.println();
         System.out.println("  SISTEMA DE GERENCIAMENTO DE CINEMA");
         System.out.println();
@@ -89,8 +90,8 @@ public class Main {
         System.out.println("0. Sair");
         System.out.print("Escolha uma opção: ");
     }
-    
-        private static void menuPessoas() {
+
+    private static void menuPessoas() {
         int opcao = -1;
         while (opcao != 0) {
             System.out.println("\n Gerenciar Pessoas");
@@ -122,39 +123,38 @@ public class Main {
             }
         }
     }
-}
 
-private static void adicionarFuncionario() {
-    System.out.print("Nome: ");
-    String nome = scanner.nextLine();
-    System.out.print("CPF: ");
-    String cpf = scanner.nextLine();
-    System.out.print("Senha: ");
-    String senha = scanner.nextLine();
-    System.out.print("Cargo: ");
-    String cargo = scanner.nextLine();
-    System.out.print("Salário: ");
-    double salario = Double.parseDouble(scanner.nextLine());
+    private static void adicionarFuncionario() {
+        System.out.print("Nome: ");
+        String nome = scanner.nextLine();
+        System.out.print("CPF: ");
+        String cpf = scanner.nextLine();
+        System.out.print("Senha: ");
+        String senha = scanner.nextLine();
+        System.out.print("Cargo: ");
+        String cargo = scanner.nextLine();
+        System.out.print("Salário: ");
+        double salario = Double.parseDouble(scanner.nextLine());
 
-    Funcionario f = new Funcionario(nome, cpf, cargo, salario, senha);
-    gerenciadorPessoas.adicionarPessoa(f);
-    System.out.println("Funcionário " + nome + " adicionado com sucesso!");
-}
+        Funcionario f = new Funcionario(nome, cpf, cargo, salario, senha);
+        gerenciadorPessoas.adicionarPessoa(f);
+        System.out.println("Funcionário " + nome + " adicionado com sucesso!");
+    }
 
-private static void adicionarGerente() {
-    System.out.print("Nome: ");
-    String nome = scanner.nextLine();
-    System.out.print("CPF: ");
-    String cpf = scanner.nextLine();
-    System.out.print("Senha: ");
-    String senha = scanner.nextLine();
-    System.out.print("Departamento: ");
-    String departamento = scanner.nextLine();
+    private static void adicionarGerente() {
+        System.out.print("Nome: ");
+        String nome = scanner.nextLine();
+        System.out.print("CPF: ");
+        String cpf = scanner.nextLine();
+        System.out.print("Senha: ");
+        String senha = scanner.nextLine();
+        System.out.print("Departamento: ");
+        String departamento = scanner.nextLine();
 
-    Gerente g = new Gerente(nome, cpf, senha, departamento);
-    gerenciadorPessoas.adicionarPessoa(g);
-    System.out.println("Gerente " + nome + " adicionado com sucesso!");
-}
+        Gerente g = new Gerente(nome, cpf, senha, departamento);
+        gerenciadorPessoas.adicionarPessoa(g);
+        System.out.println("Gerente " + nome + " adicionado com sucesso!");
+    }
     private static void menuFilmesEventos() {
         int opcao = -1;
         while (opcao != 0) {
@@ -196,20 +196,20 @@ private static void adicionarGerente() {
         }
     }
 
-private static void adicionarFilme() {
-    System.out.print("Título: ");
-    String titulo = scanner.nextLine();
-    System.out.print("Duração (minutos): ");
-    int duracao = Integer.parseInt(scanner.nextLine());
-    System.out.print("Classificação Indicativa: ");
-    String classificacao = scanner.nextLine();
+    private static void adicionarFilme() {
+        System.out.print("Título: ");
+        String titulo = scanner.nextLine();
+        System.out.print("Duração (minutos): ");
+        int duracao = Integer.parseInt(scanner.nextLine());
+        System.out.print("Classificação Indicativa: ");
+        String classificacao = scanner.nextLine();
 
-    Filme f = new Filme(titulo, duracao, classificacao);
-    filmes.add(f);
-    System.out.println("Filme " + titulo + " adicionado com sucesso!");
-}
+        Filme f = new Filme(titulo, duracao, classificacao);
+        filmes.add(f);
+        System.out.println("Filme " + titulo + " adicionado com sucesso!");
+    }
 
-private static void menuProdutos() {
+    private static void menuProdutos() {
         int opcao = -1;
         while (opcao != 0) {
             System.out.println("\n Gerenciar Produtos (Lanches)");
@@ -252,3 +252,46 @@ private static void menuProdutos() {
             System.out.println(p.exibirDetalhes());
         }
     }
+
+    private static void adicionarLanche() {
+        System.out.print("Nome do Lanche: ");
+        String nome = scanner.nextLine();
+        System.out.print("Preço: ");
+        double preco = Double.parseDouble(scanner.nextLine());
+        System.out.print("Tamanho: ");
+        String tamanho = scanner.nextLine();
+        System.out.print("Estoque Inicial: ");
+        int estoque = Integer.parseInt(scanner.nextLine());
+
+        Lanche l = new Lanche(nome, preco, tamanho, estoque);
+        produtos.add(l);
+        System.out.println("Lanche " + nome + " adicionado com sucesso!");
+    }
+
+    private static void venderLanche() {
+        if (produtos.isEmpty()) {
+            System.out.println("Nenhum produto para vender.");
+            return;
+        }
+        listarProdutos();
+        System.out.print("Digite o NOME do lanche para vender: ");
+        String nomeLanche = scanner.nextLine();
+        System.out.print("Quantidade: ");
+        int quantidade = Integer.parseInt(scanner.nextLine());
+
+        for (Produto p : produtos) {
+            if (p instanceof Lanche && p.getNome().equalsIgnoreCase(nomeLanche)) {
+                Lanche lanche = (Lanche) p;
+                if (lanche.darBaixaEstoque(quantidade)) {
+                    System.out.println("Venda de " + quantidade + "x " + nomeLanche + " realizada com sucesso!");
+                    System.out.println("Novo estoque: " + lanche.getEmEstoque());
+                } else {
+                    System.out.println("ERRO: Não foi possível realizar a venda. Estoque insuficiente.");
+                }
+                return;
+            }
+        }
+        System.out.println("Lanche não encontrado.");
+    }
+
+    
