@@ -64,7 +64,6 @@ public class Main {
             }
         }
     }
-
     private static void inicializarDados() {
         gerenciadorPessoas.adicionarPessoa(new Gerente("João Pessoa", "123.456.789-00", "senha123", "Administração"));
         gerenciadorPessoas.adicionarPessoa(new Funcionario("Bruno Borges", "987.654.321-00", "Atendente de Bilheteria", 1500.00, "senha456"));
@@ -294,4 +293,54 @@ public class Main {
         System.out.println("Lanche não encontrado.");
     }
 
-    
+    private static void menuSalas() {
+        int opcao = -1;
+        while (opcao != 0) {
+            System.out.println("\n Gerenciar Salas de Exibição");
+            System.out.println("1. Listar Todas as Salas");
+            System.out.println("2. Adicionar Nova Sala");
+            System.out.println("0. Voltar ao Menu Principal");
+            System.out.print("Escolha uma opção: ");
+
+            try {
+                opcao = Integer.parseInt(scanner.nextLine());
+                switch (opcao) {
+                    case 1:
+                        listarSalas();
+                        break;
+                    case 2:
+                        adicionarSala();
+                        break;
+                    case 0:
+                        break;
+                    default:
+                        System.out.println("Opção inválida.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Entrada inválida. Por favor, digite um número.");
+            }
+        }
+    }
+    private static void listarSalas() {
+        if (salas.isEmpty()) {
+            System.out.println("Nenhuma sala cadastrada.");
+            return;
+        }
+        System.out.println("\n Lista de Salas");
+        for (SalaExibicao s : salas) {
+            s.exibirDetalhes();
+            System.out.println();
+        }
+    }
+    private static void adicionarSala() {
+        System.out.print("Número da Sala: ");
+        int numero = Integer.parseInt(scanner.nextLine());
+        System.out.print("Capacidade Total: ");
+        int capacidade = Integer.parseInt(scanner.nextLine());
+        System.out.print("Suporte 3D (true/false): ");
+        boolean is3D = Boolean.parseBoolean(scanner.nextLine());
+        SalaExibicao s = new SalaExibicao(numero, capacidade, is3D);
+        salas.add(s);
+        System.out.println("Sala " + numero + " adicionada com sucesso!");
+    }
+}
