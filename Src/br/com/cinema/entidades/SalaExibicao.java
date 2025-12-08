@@ -1,3 +1,4 @@
+package br.com.cinema.entidades;
 public class SalaExibicao {
     
     private int numeroSala;

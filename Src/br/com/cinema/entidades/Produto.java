@@ -1,3 +1,4 @@
+package br.com.cinema.entidades;
 public abstract class Produto {
 
     protected String nome;

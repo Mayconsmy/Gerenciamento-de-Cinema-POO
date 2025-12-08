@@ -1,3 +1,4 @@
+package br.com.cinema.entidades;
 public class Lanche extends Produto {
     private String tamanho;
     private int emEstoque;

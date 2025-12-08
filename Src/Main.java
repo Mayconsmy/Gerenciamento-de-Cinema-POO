@@ -2,6 +2,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import br.com.cinema.entidades.Filme;
+import br.com.cinema.entidades.Funcionario;
+import br.com.cinema.entidades.Gerente;
+import br.com.cinema.entidades.Lanche;
+import br.com.cinema.entidades.Pessoa;
+import br.com.cinema.entidades.Produto;
+import br.com.cinema.entidades.SalaExibicao;
+
 class GerenciadorDePessoas {
     private List<Pessoa> pessoas;
 

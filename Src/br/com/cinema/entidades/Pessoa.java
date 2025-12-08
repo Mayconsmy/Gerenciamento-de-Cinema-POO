@@ -1,3 +1,4 @@
+package br.com.cinema.entidades;
 public abstract class Pessoa {
     protected String nome;
     protected String cpf;
