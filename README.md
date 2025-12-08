@@ -61,9 +61,9 @@ O projeto baseou-se em uma modelagem sólida para garantir a consistência das i
 
 * **Caio Fontes Soares**
 * **Francisco Porfírio de Oliveira Neto**
+* **Íngridy Duarte Costa**
 * **Isabel de Paiva Freire**
 * **Ítallo Vicente de Mesquita**
-* **Íngridy Duarte Costa**
 * **Maycon Soares Maia**
 * **Pedro Henrique Pereira de Sousa**
 
