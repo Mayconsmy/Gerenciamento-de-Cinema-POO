@@ -15,10 +15,10 @@ public class GerenciadorProduto {
     public void menu() {
         int opcao = -1;
         while (opcao != 0) {
-            System.out.println("\n--- GESTÃO DE PRODUTOS ---");
-            System.out.println("1. Listar Produtos");
-            System.out.println("2. Adicionar Lanche");
-            System.out.println("3. Vender Lanche");
+            System.out.println("\n--- GESTÃO DE PRODUTOS (LANCHES) ---");
+            System.out.println("1. Listar Todos os Produtos");
+            System.out.println("2. Adicionar Novo Lanche");
+            System.out.println("3. Vender Lanche (Baixa no Estoque)");
             System.out.println("0. Voltar");
             opcao = Utilitarios.lerInt("Opção: ");
 
@@ -33,31 +33,44 @@ public class GerenciadorProduto {
     }
 
     private void listar() {
-        if (cinema.getProdutos().isEmpty()) System.out.println("Estoque vazio.");
-        for (Produto p : cinema.getProdutos()) System.out.println(p.exibirDetalhes());
+        if (cinema.getProdutos().isEmpty()) {
+            System.out.println("Nenhum produto cadastrado.");
+            return;
+        }
+        System.out.println("\n Lista de Produtos");
+        for (Produto p : cinema.getProdutos()) {
+            System.out.println(p.exibirDetalhes());
+        }
     }
 
     private void adicionarLanche() {
-        String nome = Utilitarios.lerTexto("Nome: ");
+        String nome = Utilitarios.lerTexto("Nome do Lanche: ");
         double preco = Utilitarios.lerDouble("Preço: ");
-        String tam = Utilitarios.lerTexto("Tamanho: ");
-        int qtd = Utilitarios.lerInt("Quantidade Inicial: ");
-        cinema.getProdutos().add(new Lanche(nome, preco, tam, qtd));
-        System.out.println("Lanche cadastrado!");
+        String tamanho = Utilitarios.lerTexto("Tamanho: ");
+        int estoque = Utilitarios.lerInt("Estoque Inicial: ");
+
+        Lanche l = new Lanche(nome, preco, tamanho, estoque);
+        cinema.getProdutos().add(l);
+        System.out.println("Lanche " + nome + " adicionado com sucesso!");
     }
 
     private void venderLanche() {
+        if (cinema.getProdutos().isEmpty()) {
+            System.out.println("Nenhum produto para vender.");
+            return;
+        }
         listar();
-        String nome = Utilitarios.lerTexto("Digite o nome do lanche para vender: ");
-        int qtd = Utilitarios.lerInt("Quantidade: ");
+        String nomeLanche = Utilitarios.lerTexto("Digite o NOME do lanche para vender: ");
+        int quantidade = Utilitarios.lerInt("Quantidade: ");
 
         for (Produto p : cinema.getProdutos()) {
-            if (p instanceof Lanche && p.getNome().equalsIgnoreCase(nome)) {
-                Lanche l = (Lanche) p;
-                if (l.darBaixaEstoque(qtd)) {
-                    System.out.println("Venda realizada! Novo estoque: " + l.getEmEstoque());
+            if (p instanceof Lanche && p.getNome().equalsIgnoreCase(nomeLanche)) {
+                Lanche lanche = (Lanche) p;
+                if (lanche.darBaixaEstoque(quantidade)) {
+                    System.out.println("Venda de " + quantidade + "x " + nomeLanche + " realizada com sucesso!");
+                    System.out.println("Novo estoque: " + lanche.getEmEstoque());
                 } else {
-                    System.out.println("Erro: Estoque insuficiente.");
+                    System.out.println("ERRO: Não foi possível realizar a venda. Estoque insuficiente.");
                 }
                 return;
             }
