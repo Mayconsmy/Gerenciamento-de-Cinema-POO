@@ -28,3 +28,17 @@ public class GerenciadorFilme {
             }
         }
     }
+
+    private void listar() {
+        if (cinema.getFilmes().isEmpty()) System.out.println("Nenhum filme.");
+        for (Filme f : cinema.getFilmes()) f.exibirDetalhes();
+    }
+
+    private void adicionar() {
+        String tit = Utilitarios.lerTexto("Título: ");
+        int dur = Utilitarios.lerInt("Duração (min): ");
+        String clas = Utilitarios.lerTexto("Classificação: ");
+        cinema.getFilmes().add(new Filme(tit, dur, clas));
+        System.out.println("Filme adicionado!");
+    }
+}
