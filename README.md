@@ -26,3 +26,47 @@ O sistema atende aos seguintes Requisitos Funcionais (RF):
 * **Linguagem:** Java (JDK 17+)
 * **Paradigma:** Orientação a Objetos
 * **Versionamento:** Git & GitHub
+
+## 🧩 Arquitetura e Aplicação de POO
+
+Conforme detalhado na documentação do projeto, a estrutura do código reflete fielmente os conceitos de POO:
+
+### 1. Encapsulamento
+Todos os atributos das classes (como `salario` em `Funcionario` ou `capacidadeTotal` em `SalaExibicao`) são privados (`private`). O acesso e validação são feitos estritamente via Getters e Setters, garantindo a integridade dos dados (ex: impedir cadastro de idade ou preço negativo).
+
+### 2. Herança
+Utilizada para evitar repetição de código e criar hierarquias lógicas:
+* `Pessoa` (Classe Mãe) -> Herdada por `Funcionario` e `Gerente`.
+* `Produto` (Classe Mãe) -> Herdada por `Lanche`.
+
+### 3. Abstração
+Classes como `Pessoa` e `Produto` são abstratas (`abstract`), impedindo a criação de objetos genéricos e forçando a especialização nas classes filhas. Isso garante que o sistema lide apenas com entidades concretas (ex: Vender um "Lanche", e não um "Produto" genérico).
+
+### 4. Polimorfismo
+O sistema trata objetos de formas diferentes dependendo do contexto. Exemplo:
+* Método `exibirDetalhes()`: Comporta-se de maneira diferente se chamado por um `Filme` ou por um `Lanche`.
+* Listas Genéricas: O `GerenciadorPessoa` manipula uma lista de `Pessoa`, aceitando tanto `Gerente` quanto `Funcionario` na mesma estrutura.
+
+## 📊 Modelagem de Dados
+
+O projeto baseou-se em uma modelagem sólida para garantir a consistência das informações.
+
+### Modelo Conceitual
+*(Insira a imagem do Modelo Conceitual do PDF aqui, se desejar)*
+
+### Modelo Lógico
+*(Insira a imagem do Modelo Lógico do PDF aqui, se desejar)*
+
+## 👥 Autores
+
+* **Caio Fontes Soares**
+* **Isabel de Paiva Freire**
+* **Ítallo Vicente de Mesquita**
+* **Maycon Soares Maia**
+* **Pedro Henrique Pereira de Sousa**
+
+---
+
+## 📄 Licença
+
+Este projeto está sob a licença [MIT](./LICENSE).
