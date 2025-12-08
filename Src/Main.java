@@ -39,7 +39,7 @@ public class Main {
                 case 2 -> gerenciadorFilme.menu();
                 case 3 -> gerenciadorProduto.menu();
                 case 4 -> gerenciadorSala.menu();
-                case 5 -> gerenciadorAvaliacoes.menu();
+                case 5 -> gerenciadorAvaliacoes.menu(); 
                 case 0 -> System.out.println("Saindo do sistema. Até mais!");
                 default -> System.out.println("Opção inválida. Tente novamente.");
             }
@@ -62,7 +62,7 @@ public class Main {
 
     private static void exibirMenuPrincipal() {
         System.out.println();
-        System.out.println("  SISTEMA DE GERENCIAMENTO DE CINEMA");
+        System.out.println(" SISTEMA DE GERENCIAMENTO DE CINEMA");
         System.out.println();
         System.out.println("1. Gerenciar Pessoas (Funcionários/Gerentes)");
         System.out.println("2. Gerenciar Filmes e Eventos");

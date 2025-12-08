@@ -11,6 +11,7 @@ public class Utilitarios {
         System.out.println("2. Filmes");
         System.out.println("3. Produtos");
         System.out.println("4. Salas");
+        System.out.println("5. Avaliações");
         System.out.println("0. Sair");
         System.out.print("Opção: ");
     }
@@ -23,8 +24,10 @@ public class Utilitarios {
     public static double lerDouble(String mensagem) {
         System.out.print(mensagem);
         try {
-            return Double.parseDouble(scanner.nextLine());
+            String input = scanner.nextLine().replaceAll(",", ".");
+            return Double.parseDouble(input);
         } catch (NumberFormatException e) {
+            System.out.println("[ERRO] Entrada inválida. Usando 0.0.");
             return 0.0;
         }
     }
@@ -34,7 +37,16 @@ public class Utilitarios {
         try {
             return Integer.parseInt(scanner.nextLine());
         } catch (NumberFormatException e) {
+            System.out.println("[ERRO] Entrada inválida. Usando -1.");
             return -1;
         }
+    }
+
+    public static boolean lerBoolean(String mensagem) {
+        System.out.print(mensagem);
+        
+        String input = scanner.nextLine().trim().toLowerCase();
+        
+        return input.equals("true") || input.equals("t") || input.equals("sim") || input.equals("s");
     }
 }

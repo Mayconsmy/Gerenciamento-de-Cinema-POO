@@ -1,5 +1,4 @@
 package br.com.cinema.gerenciadores;
-
 import br.com.cinema.entidades.SalaExibicao;
 import br.com.cinema.sistema.Cinema;
 import br.com.cinema.utilitarios.Utilitarios;
@@ -15,11 +14,12 @@ public class GerenciadorSala {
     public void menu() {
         int opcao = -1;
         while (opcao != 0) {
-            System.out.println("\n   GESTÃO DE SALAS DE EXIBIÇÃO ");
+            System.out.println("\n GESTÃO DE SALAS DE EXIBIÇÃO ");
             System.out.println("1. Listar Todas as Salas");
             System.out.println("2. Adicionar Nova Sala");
-            System.out.println("3. Gerenciar Reservas de Salas");
+            System.out.println("3. Gerenciar Reservas de Filmes (Salas)");
             System.out.println("4. Gerenciar Assentos");
+            System.out.println("5. Venda de Ingressos (Reserva Antecipada)");
             System.out.println("0. Voltar");
             opcao = Utilitarios.lerInt("Opção: ");
 
@@ -27,7 +27,8 @@ public class GerenciadorSala {
                 case 1 -> listar();
                 case 2 -> adicionar();
                 case 3 -> menuReservasSalas();
-                case 4 -> menuReservasAssentos();
+                case 4 -> menuGerenciarAssentos(); 
+                case 5 -> menuVendaIngresso(); 
                 case 0 -> System.out.println("Voltando...");
                 default -> System.out.println("Opção inválida.");
             }
@@ -67,8 +68,8 @@ public class GerenciadorSala {
         int opcao = -1;
         while (opcao != 0) {
             System.out.println("\n GESTÃO DE RESERVAS DE SALAS ");
-            System.out.println("1. Reservar Sala");
-            System.out.println("2. Remover Reserva");
+            System.out.println("1. Reservar Sala (Filme)");
+            System.out.println("2. Remover Reserva de Filme");
             System.out.println("3. Mostrar Todas as Reservas");
             System.out.println("4. Buscar Reserva de Sala");
             System.out.println("0. Voltar");
@@ -158,7 +159,8 @@ public class GerenciadorSala {
         }
     }
 
-    private void menuReservasAssentos() {
+    // Função renomeada
+    private void menuGerenciarAssentos() {
         int numSala = Utilitarios.lerInt("Número da Sala para gerenciar assentos: ");
         SalaExibicao sala = buscarSala(numSala);
 
@@ -201,5 +203,32 @@ public class GerenciadorSala {
     private void buscarReservaAssento(SalaExibicao sala) {
         String codigoAssento = Utilitarios.lerTexto("Código do Assento para buscar (ex: A1, J10): ");
         sala.buscarReserva(codigoAssento);
+    }
+
+    public void menuVendaIngresso() {
+        int numSala = Utilitarios.lerInt("Número da Sala para comprar ingresso: ");
+        SalaExibicao sala = buscarSala(numSala);
+
+        if (sala == null) {
+            System.out.println("ERRO: Sala não encontrada.");
+            return;
+        }
+
+        if (sala.getFilmeHospedado() == null) {
+            System.out.println("ERRO: Sala " + numSala + " não está exibindo um filme. Não é possível vender ingressos.");
+            return;
+        }
+
+        System.out.println("\n-- VENDA DE INGRESSO ANTECIPADO --");
+        System.out.println("Filme em exibição: " + sala.getFilmeHospedado().getTitulo());
+        
+        sala.mostrarMapaAssentos();
+        System.out.println("\n(Assentos marcados com 'X' estão RESERVADOS)");
+
+        String codigoAssento = Utilitarios.lerTexto("Digite o código do assento desejado para compra: ");
+        
+        if (sala.reservarAssento(codigoAssento)) {
+            System.out.println("INGRESSO VENDIDO! Assento " + codigoAssento.toUpperCase() + " na Sala " + numSala + ".");
+        }
     }
 }
