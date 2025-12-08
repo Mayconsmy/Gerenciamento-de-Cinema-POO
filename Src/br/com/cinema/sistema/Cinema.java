@@ -1,6 +1,11 @@
 package br.com.cinema.sistema;
 
-import br.com.cinema.entidades.*;
+import br.com.cinema.entidades.Filme;
+import br.com.cinema.entidades.Pessoa;
+import br.com.cinema.entidades.Produto;
+import br.com.cinema.entidades.SalaExibicao;
+import br.com.cinema.entidades.Avaliacao;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,25 +14,38 @@ public class Cinema {
     private List<Filme> filmes;
     private List<Produto> produtos;
     private List<SalaExibicao> salas;
+    private List<Avaliacao> avaliacoes;
 
     public Cinema() {
         this.pessoas = new ArrayList<>();
         this.filmes = new ArrayList<>();
         this.produtos = new ArrayList<>();
         this.salas = new ArrayList<>();
-        inicializarDados(); // Carga inicial
+        this.avaliacoes = new ArrayList<>();
     }
 
-    private void inicializarDados() {
-        pessoas.add(new Gerente("Admin", "000", "admin", "Geral"));
-        filmes.add(new Filme("O Grande Lebowski", 117, "14 anos"));
-        produtos.add(new Lanche("Pipoca Grande", 25.00, "Grande", 50));
-        salas.add(new SalaExibicao(1, 150, true));
+    // Getters
+    public List<Pessoa> getPessoas() {
+        return pessoas;
     }
 
-    // Getters para as listas
-    public List<Pessoa> getPessoas() { return pessoas; }
-    public List<Filme> getFilmes() { return filmes; }
-    public List<Produto> getProdutos() { return produtos; }
-    public List<SalaExibicao> getSalas() { return salas; }
+    public List<Filme> getFilmes() {
+        return filmes;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public List<SalaExibicao> getSalas() {
+        return salas;
+    }
+
+    public List<Avaliacao> getAvaliacoes() {
+        return avaliacoes;
+    }
+
+    public void setAvaliacoes(List<Avaliacao> avaliacoes) {
+        this.avaliacoes = avaliacoes;
+    }
 }
