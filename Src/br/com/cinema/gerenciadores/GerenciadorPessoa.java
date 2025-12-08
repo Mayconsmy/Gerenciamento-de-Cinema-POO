@@ -14,7 +14,7 @@ public class GerenciadorPessoa {
     public void menu() {
         int opcao = -1;
         while (opcao != 0) {
-            System.out.println("\n--- GESTÃO DE PESSOAS ---");
+            System.out.println("\n GESTÃO DE PESSOAS ");
             System.out.println("1. Listar Pessoas");
             System.out.println("2. Adicionar Funcionario");
             System.out.println("3. Adicionar Gerente");
