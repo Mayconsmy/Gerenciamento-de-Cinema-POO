@@ -30,3 +30,36 @@ public class GerenciadorPessoa {
             }
         }
     }
+
+
+    public void listar() {
+        if (cinema.getPessoas().isEmpty()) {
+            System.out.println("Ninguém cadastrado.");
+            return;
+        }
+        for (Pessoa p : cinema.getPessoas()) {
+            System.out.println(p.getDetalhesIdentificacao() + " | " + p.getCargo());
+        }
+    }
+
+    private void adicionarFuncionario() {
+        String nome = Utilitarios.lerTexto("Nome: ");
+        String cpf = Utilitarios.lerTexto("CPF: ");
+        String cargo = Utilitarios.lerTexto("Cargo: ");
+        double sal = Utilitarios.lerDouble("Salário: ");
+        String senha = Utilitarios.lerTexto("Senha: ");
+
+        cinema.getPessoas().add(new Funcionario(nome, cpf, cargo, sal, senha));
+        System.out.println("Funcionário cadastrado!");
+    }
+
+    private void adicionarGerente() {
+        String nome = Utilitarios.lerTexto("Nome: ");
+        String cpf = Utilitarios.lerTexto("CPF: ");
+        String dept = Utilitarios.lerTexto("Departamento: ");
+        String senha = Utilitarios.lerTexto("Senha: ");
+
+        cinema.getPessoas().add(new Gerente(nome, cpf, senha, dept));
+        System.out.println("Gerente cadastrado!");
+    }
+}
