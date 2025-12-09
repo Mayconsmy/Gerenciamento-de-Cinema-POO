@@ -1,7 +1,6 @@
 package br.com.cinema.entidades;
 
 import br.com.cinema.exceptions.CinemaException;
-import java.util.Arrays;
 
 public class SalaExibicao {
 
@@ -105,7 +104,7 @@ public class SalaExibicao {
             return false;
         }
     }
-
+    
     public void mostrarMapaAssentos() {
         System.out.println("\n--- MAPA DE ASSENTOS DA SALA " + numeroSala + " ---");
         System.out.print("   ");

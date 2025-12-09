@@ -7,7 +7,6 @@ import br.com.cinema.utilitarios.Utilitarios;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -61,7 +60,8 @@ public class GerenciadorAvaliacoes {
 
         String estrelas;
         do {
-            estrelas = Utilitarios.lerTexto("Nota (1 a 5 estrelas, ex: ***): ");
+            // Adicionado trim() para evitar erros com espaços em branco
+            estrelas = Utilitarios.lerTexto("Nota (1 a 5 estrelas, ex: ***): ").trim();
             if (!Avaliacao.validarEstrelas(estrelas)) {
                 System.out.println("ERRO: Entrada de estrelas inválida. Use de 1 a 5 asteriscos (*, **, ***, ****, *****).");
             }
@@ -70,7 +70,7 @@ public class GerenciadorAvaliacoes {
         String comentario = Utilitarios.lerTexto("Comentário (opcional): ");
 
         Avaliacao novaAvaliacao = new Avaliacao(nomeUsuario, filme, estrelas, comentario);
-        // Adicionando a lista de avaliações ao Cinema
+        
         if (cinema.getAvaliacoes() == null) {
             cinema.setAvaliacoes(new ArrayList<>());
         }
