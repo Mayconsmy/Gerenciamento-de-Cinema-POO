@@ -1,5 +1,6 @@
 package br.com.cinema.entidades;
 
+import br.com.cinema.exceptions.CinemaException;
 import java.util.Arrays;
 
 public class SalaExibicao {
@@ -33,8 +34,10 @@ public class SalaExibicao {
         }
     }
 
-    private int[] parseAssento(String codigoAssento) {
-        if (codigoAssento == null || codigoAssento.length() < 2) return null;
+    // APLICAÇÃO DE EXCEÇÃO: Validação agora lança erro
+    private int[] parseAssento(String codigoAssento) throws CinemaException {
+        if (codigoAssento == null || codigoAssento.length() < 2) 
+            throw new CinemaException("Formato de assento inválido (Use Letra+Número, ex: A1).");
 
         char linhaChar = Character.toUpperCase(codigoAssento.charAt(0));
         String colunaStr = codigoAssento.substring(1);
@@ -45,69 +48,62 @@ public class SalaExibicao {
         try {
             colunaIndex = Integer.parseInt(colunaStr) - 1;
         } catch (NumberFormatException e) {
-            return null;
+            throw new CinemaException("Número do assento inválido.");
         }
 
         if (linhaIndex < 0 || linhaIndex >= NUM_LINHAS || colunaIndex < 0 || colunaIndex >= COLUNAS) {
-            return null;
+            throw new CinemaException("Assento fora dos limites da sala.");
         }
 
         return new int[]{linhaIndex, colunaIndex};
     }
 
-    public boolean reservarAssento(String codigoAssento) {
-        int[] coords = parseAssento(codigoAssento);
-        if (coords == null) {
-            System.out.println("ERRO: Assento inválido. Formato esperado: Letra(A-J) + Número(1-10).");
-            return false;
-        }
-
+    // APLICAÇÃO DE EXCEÇÃO: Método void com throw
+    public void reservarAssento(String codigoAssento) throws CinemaException {
+        int[] coords = parseAssento(codigoAssento); 
         int linha = coords[0];
         int coluna = coords[1];
 
         if (assentos[linha][coluna].equalsIgnoreCase("X")) {
-            System.out.println("ERRO: Assento " + codigoAssento.toUpperCase() + " já está reservado.");
-            return false;
+            throw new CinemaException("O assento " + codigoAssento.toUpperCase() + " já está reservado.");
         }
 
         assentos[linha][coluna] = "X";
-        System.out.println("Assento " + codigoAssento.toUpperCase() + " reservado com sucesso!");
-        return true;
     }
 
     public boolean removerReservaAssento(String codigoAssento) {
-        int[] coords = parseAssento(codigoAssento);
-        if (coords == null) {
-            System.out.println("ERRO: Assento inválido. Formato esperado: Letra(A-J) + Número(1-10).");
-            return false;
-        }
+        // Mantido com boolean para simplificar, mas idealmente usaria try-catch também
+        try {
+            int[] coords = parseAssento(codigoAssento);
+            int linha = coords[0];
+            int coluna = coords[1];
 
-        int linha = coords[0];
-        int coluna = coords[1];
-
-        if (assentos[linha][coluna].equalsIgnoreCase("X")) {
-            assentos[linha][coluna] = String.format("%c%d", (char) (LINHA_INICIAL + linha), coluna + 1);
-            System.out.println("Reserva do assento " + codigoAssento.toUpperCase() + " removida com sucesso.");
-            return true;
-        } else {
-            System.out.println("ERRO: Assento " + codigoAssento.toUpperCase() + " não estava reservado.");
+            if (assentos[linha][coluna].equalsIgnoreCase("X")) {
+                assentos[linha][coluna] = String.format("%c%d", (char) (LINHA_INICIAL + linha), coluna + 1);
+                System.out.println("Reserva do assento " + codigoAssento.toUpperCase() + " removida com sucesso.");
+                return true;
+            } else {
+                System.out.println("ERRO: Assento " + codigoAssento.toUpperCase() + " não estava reservado.");
+                return false;
+            }
+        } catch (CinemaException e) {
+            System.out.println("ERRO: " + e.getMessage());
             return false;
         }
     }
 
     public boolean buscarReserva(String codigoAssento) {
-        int[] coords = parseAssento(codigoAssento);
-        if (coords == null) {
-            System.out.println("ERRO: Assento inválido. Formato esperado: Letra(A-J) + Número(1-10).");
+        try {
+            int[] coords = parseAssento(codigoAssento);
+            int linha = coords[0];
+            int coluna = coords[1];
+            boolean reservado = assentos[linha][coluna].equalsIgnoreCase("X");
+            System.out.println("Assento " + codigoAssento.toUpperCase() + ": " + (reservado ? "RESERVADO" : "LIVRE"));
+            return reservado;
+        } catch (CinemaException e) {
+            System.out.println("ERRO: " + e.getMessage());
             return false;
         }
-
-        int linha = coords[0];
-        int coluna = coords[1];
-
-        boolean reservado = assentos[linha][coluna].equalsIgnoreCase("X");
-        System.out.println("Assento " + codigoAssento.toUpperCase() + ": " + (reservado ? "RESERVADO" : "LIVRE"));
-        return reservado;
     }
 
     public void mostrarMapaAssentos() {
@@ -129,45 +125,25 @@ public class SalaExibicao {
         }
     }
 
-
-    public int getNumeroSala() {
-        return numeroSala;
-    }
-
-    public int getCapacidadeTotal() {
-        return capacidadeTotal;
-    }
-
-    public boolean isIs3D() {
-        return is3D;
-    }
-
-    public Filme getFilmeHospedado() {
-        return filmeHospedado;
-    }
-
-    public void setFilmeHospedado(Filme filmeHospedado) {
-        this.filmeHospedado = filmeHospedado;
-    }
-
-    public void setNumeroSala(int numeroSala) {
-        this.numeroSala = numeroSala;
-    }
+    // Getters e Setters
+    public int getNumeroSala() { return numeroSala; }
+    public int getCapacidadeTotal() { return capacidadeTotal; }
+    public boolean isIs3D() { return is3D; }
+    public Filme getFilmeHospedado() { return filmeHospedado; }
+    public void setFilmeHospedado(Filme filmeHospedado) { this.filmeHospedado = filmeHospedado; }
+    public void setNumeroSala(int numeroSala) { this.numeroSala = numeroSala; }
+    public void setIs3D(boolean is3D) { this.is3D = is3D; }
 
     public void setCapacidadeTotal(int capacidadeTotal) {
         if (capacidadeTotal <= 0) {
-            System.out.println("ERRO: A capacidade da sala (" + capacidadeTotal + ") deve ser um número positivo de assentos. Capacidade não alterada.");
+            System.out.println("ERRO: A capacidade da sala deve ser positiva.");
         } else {
             this.capacidadeTotal = capacidadeTotal;
         }
     }
 
-    public void setIs3D(boolean is3D) {
-        this.is3D = is3D;
-    }
-
     public void exibirDetalhes() {
-        System.out.println("   informações da Sala   ");
+        System.out.println("   Informações da Sala   ");
         System.out.println("Número da Sala: " + numeroSala);
         System.out.println("Capacidade Máxima: " + capacidadeTotal + " assentos");
         System.out.println("Suporte 3D: " + (is3D ? "Sim" : "Não"));
