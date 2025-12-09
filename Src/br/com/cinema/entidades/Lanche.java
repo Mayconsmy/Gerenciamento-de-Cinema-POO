@@ -1,4 +1,7 @@
 package br.com.cinema.entidades;
+
+import br.com.cinema.exceptions.EstoqueException;
+
 public class Lanche extends Produto {
     private String tamanho;
     private int emEstoque;
@@ -21,16 +24,15 @@ public class Lanche extends Produto {
         if (emEstoque >= 0) {
             this.emEstoque = emEstoque;
         } else {
-            System.out.println("Erro: Item indisponivél no estoque. Estoque mantido em " + this.emEstoque);
+            System.out.println("Erro: Item indisponível no estoque. Estoque mantido em " + this.emEstoque);
         }
     }
 
-    public boolean darBaixaEstoque(int quantidade) {
-        if (this.emEstoque >= quantidade) {
-            this.emEstoque -= quantidade;
-            return true;
+    public void darBaixaEstoque(int quantidade) throws EstoqueException {
+        if (quantidade > this.emEstoque) {
+            throw new EstoqueException("Estoque insuficiente. Solicitado: " + quantidade + ", Disponível: " + this.emEstoque);
         }
-        return false;
+        this.emEstoque -= quantidade;
     }
 
     @Override
