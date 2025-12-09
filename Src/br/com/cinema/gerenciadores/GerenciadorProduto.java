@@ -4,6 +4,7 @@ import br.com.cinema.entidades.Lanche;
 import br.com.cinema.entidades.Produto;
 import br.com.cinema.sistema.Cinema;
 import br.com.cinema.utilitarios.Utilitarios;
+import br.com.cinema.exceptions.EstoqueException;
 
 public class GerenciadorProduto {
     private Cinema cinema;
@@ -70,11 +71,14 @@ public class GerenciadorProduto {
         for (Produto p : cinema.getProdutos()) {
             if (p instanceof Lanche && p.getNome().equalsIgnoreCase(nomeLanche)) {
                 Lanche lanche = (Lanche) p;
-                if (lanche.darBaixaEstoque(quantidade)) {
+                
+                // TRATAMENTO DE EXCEÇÃO APLICADO
+                try {
+                    lanche.darBaixaEstoque(quantidade);
                     System.out.println("Venda de " + quantidade + "x " + nomeLanche + " realizada com sucesso!");
                     System.out.println("Novo estoque: " + lanche.getEmEstoque());
-                } else {
-                    System.out.println("ERRO: Não foi possível realizar a venda. Estoque insuficiente.");
+                } catch (EstoqueException e) {
+                    System.out.println("ERRO NA VENDA: " + e.getMessage());
                 }
                 return;
             }
