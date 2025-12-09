@@ -18,6 +18,8 @@ public class GerenciadorPessoa {
             System.out.println("1. Listar Pessoas");
             System.out.println("2. Adicionar Funcionario");
             System.out.println("3. Adicionar Gerente");
+            System.out.println("4. Remover Pessoa (Funcionario/Gerente)");
+            System.out.println("5. Buscar Pessoa (Funcionario/Gerente)");
             System.out.println("0. Voltar");
             opcao = Utilitarios.lerInt("Opção: ");
 
@@ -25,6 +27,8 @@ public class GerenciadorPessoa {
                 case 1 -> listar();
                 case 2 -> adicionarFuncionario();
                 case 3 -> adicionarGerente();
+                case 4 -> removerPessoa();
+                case 5 -> buscarPessoa();
                 case 0 -> System.out.println("Voltando...");
                 default -> System.out.println("Opção inválida.");
             }
@@ -61,5 +65,37 @@ public class GerenciadorPessoa {
 
         cinema.getPessoas().add(new Gerente(nome, cpf, senha, dept));
         System.out.println("Gerente cadastrado!");
+    }
+
+    private Pessoa buscarPessoa(String cpf) {
+        return cinema.getPessoas().stream()
+                .filter(p -> p.getCpf().equals(cpf))
+                .findFirst()
+                .orElse(null);
+    }
+
+    private void removerPessoa() {
+        String cpf = Utilitarios.lerTexto("CPF da Pessoa para remover: ");
+        Pessoa pessoa = buscarPessoa(cpf);
+
+        if (pessoa == null) {
+            System.out.println("ERRO: Pessoa não encontrada.");
+            return;
+        }
+
+        cinema.getPessoas().remove(pessoa);
+        System.out.println("Pessoa com CPF " + cpf + " removida com sucesso!");
+    }
+
+    private void buscarPessoa() {
+        String cpf = Utilitarios.lerTexto("CPF da Pessoa para buscar: ");
+        Pessoa pessoa = buscarPessoa(cpf);
+
+        if (pessoa == null) {
+            System.out.println("Pessoa não encontrada.");
+        } else {
+            System.out.println("Pessoa encontrada:");
+            System.out.println(pessoa.getDetalhesIdentificacao() + " | " + pessoa.getCargo());
+        }
     }
 }

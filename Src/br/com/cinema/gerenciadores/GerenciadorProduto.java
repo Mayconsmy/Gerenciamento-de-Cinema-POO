@@ -19,6 +19,8 @@ public class GerenciadorProduto {
             System.out.println("1. Listar Todos os Produtos");
             System.out.println("2. Adicionar Novo Lanche");
             System.out.println("3. Vender Lanche (Baixa no Estoque)");
+            System.out.println("4. Remover Produto");
+            System.out.println("5. Buscar Produto");
             System.out.println("0. Voltar");
             opcao = Utilitarios.lerInt("Opção: ");
 
@@ -26,6 +28,8 @@ public class GerenciadorProduto {
                 case 1 -> listar();
                 case 2 -> adicionarLanche();
                 case 3 -> venderLanche();
+                case 4 -> removerProduto();
+                case 5 -> buscarProduto();
                 case 0 -> System.out.println("Voltando...");
                 default -> System.out.println("Opção inválida.");
             }
@@ -76,5 +80,37 @@ public class GerenciadorProduto {
             }
         }
         System.out.println("Lanche não encontrado.");
+    }
+
+    private Produto buscarProduto(String nome) {
+        return cinema.getProdutos().stream()
+                .filter(p -> p.getNome().equalsIgnoreCase(nome))
+                .findFirst()
+                .orElse(null);
+    }
+
+    private void removerProduto() {
+        String nome = Utilitarios.lerTexto("Nome do Produto para remover: ");
+        Produto produto = buscarProduto(nome);
+
+        if (produto == null) {
+            System.out.println("ERRO: Produto não encontrado.");
+            return;
+        }
+
+        cinema.getProdutos().remove(produto);
+        System.out.println("Produto '" + nome + "' removido com sucesso!");
+    }
+
+    private void buscarProduto() {
+        String nome = Utilitarios.lerTexto("Nome do Produto para buscar: ");
+        Produto produto = buscarProduto(nome);
+
+        if (produto == null) {
+            System.out.println("Produto não encontrado.");
+        } else {
+            System.out.println("Produto encontrado:");
+            System.out.println(produto.exibirDetalhes());
+        }
     }
 }
