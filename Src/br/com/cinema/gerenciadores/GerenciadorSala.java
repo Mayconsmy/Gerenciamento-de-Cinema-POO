@@ -4,6 +4,7 @@ import br.com.cinema.entidades.SalaExibicao;
 import br.com.cinema.sistema.Cinema;
 import br.com.cinema.utilitarios.Utilitarios;
 import br.com.cinema.entidades.Filme;
+import br.com.cinema.exceptions.CinemaException;
 
 public class GerenciadorSala {
 
@@ -100,7 +101,6 @@ public class GerenciadorSala {
 
     private void menuReservasSalas() {
         int opcao = -1;
-
         while (opcao != 0) {
             System.out.println("\n GESTÃO DE RESERVAS DE SALAS ");
             System.out.println("1. Reservar Sala (Filme)");
@@ -155,48 +155,26 @@ public class GerenciadorSala {
     private void removerReservaSala() {
         int numSala = Utilitarios.lerInt("Número da Sala para remover reserva: ");
         SalaExibicao sala = buscarSala(numSala);
-
-        if (sala == null) {
-            System.out.println("ERRO: Sala não encontrada.");
-            return;
-        }
-
-        if (sala.getFilmeHospedado() == null) {
-            System.out.println("A Sala " + numSala + " já está livre.");
-            return;
-        }
-
+        if (sala == null) { System.out.println("ERRO: Sala não encontrada."); return; }
+        if (sala.getFilmeHospedado() == null) { System.out.println("A Sala " + numSala + " já está livre."); return; }
         sala.setFilmeHospedado(null);
         System.out.println("Reserva da Sala " + numSala + " removida. Sala agora está livre.");
     }
 
     private void listarReservasSalas() {
         System.out.println("\n RESERVAS DE SALAS ");
-
         cinema.getSalas().stream()
                 .filter(s -> s.getFilmeHospedado() != null)
-                .forEach(s -> System.out.println("Sala " + s.getNumeroSala() +
-                        " -> Filme: " + s.getFilmeHospedado().getTitulo()));
-
-        if (cinema.getSalas().stream().noneMatch(s -> s.getFilmeHospedado() != null)) {
-            System.out.println("Nenhuma sala reservada.");
-        }
+                .forEach(s -> System.out.println("Sala " + s.getNumeroSala() + " -> Filme: " + s.getFilmeHospedado().getTitulo()));
+        if (cinema.getSalas().stream().noneMatch(s -> s.getFilmeHospedado() != null)) { System.out.println("Nenhuma sala reservada."); }
     }
 
     private void buscarReservaSala() {
         int numSala = Utilitarios.lerInt("Número da Sala para buscar reserva: ");
         SalaExibicao sala = buscarSala(numSala);
-
-        if (sala == null) {
-            System.out.println("ERRO: Sala não encontrada.");
-            return;
-        }
-
-        if (sala.getFilmeHospedado() != null) {
-            System.out.println("Sala " + numSala + " está reservada para o filme: " + sala.getFilmeHospedado().getTitulo());
-        } else {
-            System.out.println("Sala " + numSala + " está livre.");
-        }
+        if (sala == null) { System.out.println("ERRO: Sala não encontrada."); return; }
+        if (sala.getFilmeHospedado() != null) { System.out.println("Sala " + numSala + " está reservada para o filme: " + sala.getFilmeHospedado().getTitulo()); } 
+        else { System.out.println("Sala " + numSala + " está livre."); }
     }
 
     private void menuGerenciarAssentos() {
@@ -230,9 +208,15 @@ public class GerenciadorSala {
         }
     }
 
+    // TRATAMENTO DE EXCEÇÃO APLICADO
     private void reservarAssento(SalaExibicao sala) {
         String codigoAssento = Utilitarios.lerTexto("Código do Assento (ex: A1, J10): ");
-        sala.reservarAssento(codigoAssento);
+        try {
+            sala.reservarAssento(codigoAssento);
+            System.out.println("Assento " + codigoAssento.toUpperCase() + " reservado com sucesso!");
+        } catch (CinemaException e) {
+            System.out.println("FALHA AO RESERVAR: " + e.getMessage());
+        }
     }
 
     private void removerReservaAssento(SalaExibicao sala) {
@@ -245,6 +229,7 @@ public class GerenciadorSala {
         sala.buscarReserva(codigoAssento);
     }
 
+    // TRATAMENTO DE EXCEÇÃO APLICADO
     public void menuVendaIngresso() {
         int numSala = Utilitarios.lerInt("Número da Sala para comprar ingresso: ");
         SalaExibicao sala = buscarSala(numSala);
@@ -267,9 +252,12 @@ public class GerenciadorSala {
 
         String codigoAssento = Utilitarios.lerTexto("Digite o código do assento desejado para compra: ");
 
-        if (sala.reservarAssento(codigoAssento)) {
+        try {
+            sala.reservarAssento(codigoAssento);
             System.out.println("INGRESSO VENDIDO! Assento " + codigoAssento.toUpperCase() +
                     " na Sala " + numSala + ".");
+        } catch (CinemaException e) {
+            System.out.println("VENDA NÃO REALIZADA: " + e.getMessage());
         }
     }
 }
