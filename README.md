@@ -52,10 +52,10 @@ O sistema trata objetos de formas diferentes dependendo do contexto. Exemplo:
 O projeto baseou-se em uma modelagem sólida para garantir a consistência das informações.
 
 ### Modelo Conceitual
-*(Insira a imagem do Modelo Conceitual do PDF aqui, se desejar)*
+![Diagrama do Modelo Conceitual](./src/conceptual.png)
 
 ### Modelo Lógico
-*(Insira a imagem do Modelo Lógico do PDF aqui, se desejar)*
+![Diagrama do Modelo Conceitual](./src/logic.png)
 
 ## 👥 Autores
 
