@@ -4,7 +4,7 @@ Sistema desenvolvido em Java para o gerenciamento de rotinas operacionais de um 
 
 ## 📝 Sobre o Projeto
 
-Este projeto foi desenvolvido como requisito para a conclusão da disciplina de Programação Orientada a Objetos do curso de Bacharelado Interdisciplinar em Tecnologia da Informação da UFERSA, ministrada pelo professor Bruno Borger.
+Este projeto foi desenvolvido como requisito para a conclusão da disciplina de Programação Orientada a Objetos do curso de Bacharelado Interdisciplinar em Tecnologia da Informação da UFERSA, ministrada pelo professor Bruno Borges.
 
 O sistema visa centralizar e organizar informações essenciais, como o cadastro de filmes, controle de sessões, gerenciamento de salas, venda de produtos (lanches) e administração de funcionários e gerentes. O foco principal é a aplicação de boas práticas de desenvolvimento, modularidade e segurança de dados através do encapsulamento.
 
